@@ -10,14 +10,14 @@ func TestCustomerWhenIdIsRequired(t *testing.T) {
 	customer, err := NewCustomer("", "Customer 1")
 
 	assert.Nil(t, customer)
-	assert.EqualError(t, ErrorIdIsRequired, err.Error())
+	assert.EqualError(t, ErrorCustomerIdIsRequired, err.Error())
 }
 
 func TestCustomerWhenNameIsRequired(t *testing.T) {
 	customer, err := NewCustomer("123", "")
 
 	assert.Nil(t, customer)
-	assert.EqualError(t, ErrorNameIsRequired, err.Error())
+	assert.EqualError(t, ErrorCustomerNameIsRequired, err.Error())
 }
 
 func TestCustomerChangeName(t *testing.T) {
@@ -53,6 +53,6 @@ func TestCustomerWhenAddressIsMandatory(t *testing.T) {
 
 	err := customer.Activate()
 
-	assert.EqualError(t, ErrorAddressIsMandatory, err.Error())
+	assert.EqualError(t, ErrorCustomerAddressIsMandatory, err.Error())
 	assert.False(t, customer.IsActive())
 }

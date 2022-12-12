@@ -3,9 +3,9 @@ package entity
 import "errors"
 
 var (
-	ErrorNameIsRequired     = errors.New("name is required")
-	ErrorIdIsRequired       = errors.New("id is required")
-	ErrorAddressIsMandatory = errors.New("address is mandatory to activate a customer")
+	ErrorCustomerNameIsRequired     = errors.New("name is required")
+	ErrorCustomerIdIsRequired       = errors.New("id is required")
+	ErrorCustomerAddressIsMandatory = errors.New("address is mandatory to activate a customer")
 )
 
 type Customer struct {
@@ -33,11 +33,11 @@ func NewCustomer(id, name string) (*Customer, error) {
 
 func (c *Customer) Validate() error {
 	if c.name == "" {
-		return ErrorNameIsRequired
+		return ErrorCustomerNameIsRequired
 	}
 
 	if c.id == "" {
-		return ErrorIdIsRequired
+		return ErrorCustomerIdIsRequired
 	}
 
 	return nil
@@ -54,7 +54,7 @@ func (c *Customer) IsActive() bool {
 
 func (c *Customer) Activate() error {
 	if c.address == (Address{}) {
-		return ErrorAddressIsMandatory
+		return ErrorCustomerAddressIsMandatory
 	}
 
 	c.active = true
