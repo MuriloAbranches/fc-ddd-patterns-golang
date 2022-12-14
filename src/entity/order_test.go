@@ -28,15 +28,23 @@ func TestOrderWhenOrderItemsAreRequired(t *testing.T) {
 }
 
 func TestOrderCalculateTotal(t *testing.T) {
-	item1, _ := NewOrderItem("i1", "Item 1", 100.00)
+	item1, _ := NewOrderItem("i1", "p1", "Item 1", 100.00, 2)
 	order1, err := NewOrder("o1", "c1", []OrderItem{*item1})
 
 	assert.Nil(t, err)
-	assert.Equal(t, 100.00, order1.total)
+	assert.Equal(t, 200.00, order1.total)
 
-	item2, _ := NewOrderItem("i2", "Item 2", 200.00)
+	item2, _ := NewOrderItem("i2", "p2", "Item 2", 200.00, 2)
 	order2, err := NewOrder("o2", "c2", []OrderItem{*item1, *item2})
 
 	assert.Nil(t, err)
-	assert.Equal(t, 300.00, order2.total)
+	assert.Equal(t, 600.00, order2.total)
+}
+
+func TestOrderWhenItemQuantityIsLessOrEqualZero(t *testing.T) {
+	item1, _ := NewOrderItem("i1", "p1", "Item 1", 100.00, 0)
+	order1, err := NewOrder("o1", "c1", []OrderItem{*item1})
+
+	assert.Nil(t, order1)
+	assert.EqualError(t, ErrorItemQuantityIsLessOrEqualZero, err.Error())
 }

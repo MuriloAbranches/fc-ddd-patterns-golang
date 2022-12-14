@@ -25,12 +25,12 @@ func main() {
 
 	fmt.Println(customer)
 
-	item1, err := entity.NewOrderItem("1", "Item 1", 10)
+	item1, err := entity.NewOrderItem("1", "p1", "Item 1", 10, 2)
 	if err != nil {
 		panic(err)
 	}
 
-	item2, err := entity.NewOrderItem("2", "Item 2", 15)
+	item2, err := entity.NewOrderItem("2", "p2", "Item 2", 15, 1)
 	if err != nil {
 		panic(err)
 	}

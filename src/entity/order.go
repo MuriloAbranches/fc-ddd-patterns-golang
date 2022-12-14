@@ -3,9 +3,10 @@ package entity
 import "errors"
 
 var (
-	ErrorOrderIdIsRequired         = errors.New("id is required")
-	ErrorOrderCustomerIdIsRequired = errors.New("customerId is required")
-	ErrorOrderItemsAreRequired     = errors.New("items are required")
+	ErrorOrderIdIsRequired             = errors.New("id is required")
+	ErrorOrderCustomerIdIsRequired     = errors.New("customerId is required")
+	ErrorOrderItemsAreRequired         = errors.New("items are required")
+	ErrorItemQuantityIsLessOrEqualZero = errors.New("item quantity must be greater than zero")
 )
 
 type Order struct {
@@ -44,6 +45,12 @@ func (o *Order) Validate() error {
 		return ErrorOrderItemsAreRequired
 	}
 
+	for _, orderItem := range o.items {
+		if orderItem.quantity == 0 {
+			return ErrorItemQuantityIsLessOrEqualZero
+		}
+	}
+
 	return nil
 }
 
@@ -51,7 +58,7 @@ func (o *Order) Total() float64 {
 	var total = 0.0
 
 	for _, orderItem := range o.items {
-		total = total + orderItem.price
+		total = total + orderItem.OrderItemTotal()
 	}
 
 	return total
