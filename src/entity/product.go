@@ -54,3 +54,7 @@ func (p *Product) Validate() error {
 
 	return nil
 }
+
+func (p *Product) GetPrice() float64 {
+	return p.price
+}
