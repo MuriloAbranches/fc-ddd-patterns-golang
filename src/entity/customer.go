@@ -9,18 +9,20 @@ var (
 )
 
 type Customer struct {
-	id      string
-	name    string
-	address Address
-	active  bool
+	id           string
+	name         string
+	address      Address
+	active       bool
+	rewardPoints int
 }
 
 func NewCustomer(id, name string) (*Customer, error) {
 	customer := &Customer{
-		id:      id,
-		name:    name,
-		address: Address{},
-		active:  false,
+		id:           id,
+		name:         name,
+		address:      Address{},
+		active:       false,
+		rewardPoints: 0,
 	}
 
 	err := customer.Validate()
@@ -64,6 +66,18 @@ func (c *Customer) Activate() error {
 
 func (c *Customer) Deactivate() {
 	c.active = false
+}
+
+func (c *Customer) AddRewardPoints(points int) {
+	c.rewardPoints += points
+}
+
+func (c *Customer) GetRewardPoints() int {
+	return c.rewardPoints
+}
+
+func (c *Customer) GetId() string {
+	return c.id
 }
 
 func (c *Customer) SetAddress(address Address) {

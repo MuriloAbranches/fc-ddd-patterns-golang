@@ -56,3 +56,17 @@ func TestCustomerWhenAddressIsMandatory(t *testing.T) {
 	assert.EqualError(t, ErrorCustomerAddressIsMandatory, err.Error())
 	assert.False(t, customer.IsActive())
 }
+
+func TestCustomerAddRewardPoints(t *testing.T) {
+	customer, err := NewCustomer("1", "Customer 1")
+	assert.Nil(t, err)
+	assert.Equal(t, 0, customer.GetRewardPoints())
+
+	customer.AddRewardPoints(10)
+
+	assert.Equal(t, 10, customer.GetRewardPoints())
+
+	customer.AddRewardPoints(10)
+
+	assert.Equal(t, 20, customer.GetRewardPoints())
+}
